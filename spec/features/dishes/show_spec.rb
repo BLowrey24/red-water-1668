@@ -25,8 +25,14 @@ RSpec.describe '/dishes/:id', type: :feature do
       select @ingredient3.name, from: "ingredient_id"
       click_button "Add Ingredient"
       
+
+      expect(page).to have_content("Ingredient added to dish.")
       expect(page).to have_content(@ingredient3.name)
       expect(page).to have_content("Calories: 35") # Is there a better way to test this instead of just hard coding this?
+
+      select @ingredient1.name, from: "ingredient_id"
+      click_button "Add Ingredient"
+      expect(page).to have_content("This dish already contains that ingredient.")
     end
   end
 end
